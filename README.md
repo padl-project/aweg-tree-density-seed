@@ -1,2 +1,3 @@
-# template-repo
-Each data package should have its own repo based on the structure of this repository. Here are all the foldes and necesary files to download/upload data to our Drive, and create the EML and folders according to file paths in the differet scripts.
+# aweg-tree-density-seed 
+This repositories aims to organize and QA/QC data on Tree Density Seedlings at Palmyra Atoll. Clean data will be publised at the Environmental Data Initiative site.
+Data author: Alex Wegmann
