@@ -1,0 +1,7 @@
+attributeName	code	definition
+phase	adult	
+phase	seedling	
+tree_type	cocos	
+tree_type	pandanus	
+tree_type	pisonia	
+tree_type	terminalia	

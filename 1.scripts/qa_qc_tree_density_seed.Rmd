@@ -20,7 +20,6 @@ library(freeR)
 ## Sets R not to use scientific notations
 options(scipen=999) 
 
-raw_data_path <- here::here("6.raw_data/")
 ```
 
 ## Exploring data
@@ -36,6 +35,35 @@ Just the one sheet we need.
 ```{r}
 tree_dens_raw <- read_excel(here::here("6.raw_data/Tree Density _ Seedling Density.xlsx")) %>% 
   clean_names()
+```
+
+
+## QA/QC
+
+```{r}
+colnames(tree_dens_raw)
+str(tree_dens_raw)
+
+unique(tree_dens_raw$study_species)
+## Divide into species and phase?
+
+complete(tree_dens_raw)
+
+```
+
+## Final data
+```{r}
+clean_tre_dens <- tree_dens_raw %>% 
+  separate(col = "study_species",
+           into = c("tree_type", "phase"),
+           sep = " ")
+```
+
+
+## Save
+
+```{r}
+write_csv(clean_tre_dens, here::here("7.clean_data/Palmyra_Tree_Seedlings_DensityXXXX.csv"))
 ```
 
 

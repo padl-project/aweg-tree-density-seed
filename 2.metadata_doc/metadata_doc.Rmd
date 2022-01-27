@@ -1,7 +1,7 @@
 ---
-title: "ADD TILE"
-author: "ADD AUTHOR"
-date: "ADD DATE"
+title: "Tree and Seedling Density"
+author: "Alex Wegmann"
+date: "01/27/2022"
 output: word_document
 ---
 
@@ -42,7 +42,7 @@ _Please provide an abstract specifically of the dataset. This is different from 
 ## 4. Creators
 _These are the people who will show up as authors in the dataset citation. These are the individuals who have provided intellectual or other significant contributions to the creation of this dataset. **Please add a row with the information of each individual that should be part of the authorship of this dataset.**_
 
-**We highly encourage you to create an ORCID if you don't already have one.** [Find more information here.](https://info.orcid.org/what-is-orcid/)
+**Please add anyone else that should be listed as an author of this data besides you**
 
 ```{r, creator table, echo = FALSE, message= FALSE, warning= FALSE}
 
@@ -82,18 +82,16 @@ _There must be at least one person or organization name to serve as the contact 
 _You may also list other personnel who participated in the project (such as field crew, lab tech, data entry, etc.) in this table with optional fields, email addresses, organization, and ORCID ID._
 
 
-**We highly encourage you to create an ORCID if you don't already have one.** [Find more information here.](https://info.orcid.org/what-is-orcid/)
-
 
 ```{r, personnel table, echo = FALSE, message= FALSE, warning= FALSE}
 
 p_first_name <- c("", "Camila")
 p_middle_in <- c("", "")
 p_last_name <- c(" ", "Vargas Poulsen")
-p_organization <- c(" ", "PADL Data Manager, University of California Santa Barbara")
+p_organization <- c(" ", "University of California Santa Barbara")
 p_email <- c("", "camilavargas@ucsb.edu")
 p_orcid <- c("", "")
-p_role <- c("contact", "associated party")
+p_role <- c("contact", "PADL Data Manager")
 
 personnel_colnames <- c("First Name", "Middle Initial", "Last Name", "Organization", "email address", "ORCID ID", "Role in project")
 
@@ -135,6 +133,7 @@ Attribution is required. CC licenses require that those who reuse a work provide
 _Using keywords from a controlled vocabulary (CV) will improve your data's future discovery and reuse.  The LTER CV is a good source for keywords. Access the [LTER CV here](https://vocab.lternet.edu/vocab/vocab/index.php).  Also, please determine one or two keywords that best describe your lab, station, and/or project (e.g., Trout Lake Station, NTL LTER).). Add as many rows to this table as needed_
 
 - Palmyra Atoll
+- 
 
 
 
@@ -175,6 +174,8 @@ flextable::flextable(funding_table) %>%
 
 ## 9. Timeframe
 
+**When was this data collected**
+
 ```{r, timefram table, echo = FALSE, message= FALSE, warning= FALSE}
 
 Information <- c("Begin date", "End date", "Is data collection ongoing or completed?")
@@ -195,7 +196,7 @@ flextable::flextable(timeframe_table) %>%
 _Use decimal degrees to define a point or a bounding box._
 Every point you add will be displayed on a map once the data package is published. [See example here](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&identifier=108)
 
-**Verbal description:** Palmyra Atoll
+**Verbal description:** Palmyra Atoll National Wildlife Refuge
 
 ```{r, geographic location table, echo = FALSE, message= FALSE, warning= FALSE}
 
@@ -210,21 +211,6 @@ flextable(geo_loc_table) %>%
 
 ```
 
-**Copy this block to add multiple points or areas.**_
-
-**Verbal description:**
-
-
-```{r, geographic location table 2, echo = FALSE, message= FALSE, warning= FALSE}
-
-coordinate <- c(" ", " ", " ", " ")
-
-geo_loc_table_2 <- tibble(Directions, coordinate)
-
-flextable(geo_loc_table_2) %>% 
-  autofit(add_w = 0.2, add_h = 0.1, part = c("body", "header"), unit = "in")
-
-```
 
 ## 11. Methods
 _Be specific about the study design and field and lab methods for collecting and processing the data. Include instrument descriptions and protocol citations._
@@ -292,56 +278,56 @@ path_templates <- here::here("3.data_attributes")
 ## If there is just one file in 7.clean_data run this code
 ## **UPDATE NAMES**
 
-# file1_name <- "FILE NAME"
-# 
-# ## Creating the attribute .txt
+file1_name <- "Palmyra_Tree_Seedlings_DensityXXXX"
+
+## Creating the attribute .txt
 # EMLassemblyline::template_table_attributes(
 #   path = path_templates,
 #   data.path = path_data,
 #   data.table = paste0(file1_name, ".csv"))
-# 
-# ## reading text into a data frame
-# data_attributes1 <- read.delim2(here::here(paste0("3.data_attributes/attributes_", file1_name, ".txt"))) %>% 
-#   mutate(unit = case_when(unit == "!Add units here!" ~ "*"))
+
+## reading text into a data frame
+data_attributes1 <- read.delim2(here::here(paste0("3.data_attributes/attributes_", file1_name, ".txt"))) %>%
+  mutate(unit = case_when(unit == "!Add units here!" ~ "*"))
 
 #------------------------------------------------------------------#
 
 ## If there is more than one data set in 7.clean_data, run this code
 
 ## Create table with all the file names
-files_names <- tibble(
-  list.files(path_data, pattern = "csv")) %>% 
-  rename(file_name = 1) %>% 
-  mutate(file_name = str_remove(file_name, ".csv"),
-         attribute_name = paste0("data_attributes", 1:n()),
-         position = 1:n())
-
-## Creating the attribute .txt
-
-for (i in files_names$file_name){
-
-  EMLassemblyline::template_table_attributes(
-  path = path_templates,
-  data.path = path_data,
-  data.table = paste0(i, ".csv"))
-}
-
-## reading text into a data frame
-
-##General function
-read_attribute <- function(test){
-  
-  read.delim2(here::here(paste0("3.data_attributes/attributes_", test, ".txt"))) %>% 
-  mutate(unit = case_when(unit == "!Add units here!" ~ "*"))
-}
-
-## Loop to read and name each file 
-for (i in files_names$position){
-  
-  assign(files_names$attribute_name[i], read_attribute(files_names$file_name[i]))
-
-  }
-
+# files_names <- tibble(
+#   list.files(path_data, pattern = "csv")) %>% 
+#   rename(file_name = 1) %>% 
+#   mutate(file_name = str_remove(file_name, ".csv"),
+#          attribute_name = paste0("data_attributes", 1:n()),
+#          position = 1:n())
+# 
+# ## Creating the attribute .txt
+# 
+# for (i in files_names$file_name){
+# 
+#   EMLassemblyline::template_table_attributes(
+#   path = path_templates,
+#   data.path = path_data,
+#   data.table = paste0(i, ".csv"))
+# }
+# 
+# ## reading text into a data frame
+# 
+# ##General function
+# read_attribute <- function(test){
+#   
+#   read.delim2(here::here(paste0("3.data_attributes/attributes_", test, ".txt"))) %>% 
+#   mutate(unit = case_when(unit == "!Add units here!" ~ "*"))
+# }
+# 
+# ## Loop to read and name each file 
+# for (i in files_names$position){
+#   
+#   assign(files_names$attribute_name[i], read_attribute(files_names$file_name[i]))
+# 
+#   }
+# 
 
 ```
 
@@ -357,8 +343,8 @@ flextable::flextable(data_attributes1) %>%
 
 ```{r, attribute table 2, echo=FALSE, message= FALSE, warning= FALSE}
 
-flextable::flextable(data_attributes2) %>% 
-  width(width = 1)
+# flextable::flextable(data_attributes2) %>% 
+#   width(width = 1)
 
 ```
 
@@ -371,9 +357,9 @@ _If you use codes in your column, please define each code in the following table
 ```{r, attribute code, echo = FALSE, message= FALSE, warning= FALSE}
 
 ## Note: there can only be one file with he prefix attribute_ in the data attribute folder.
-EMLassemblyline::template_categorical_variables(
-  path = path_templates,
-  data.path = path_data)
+# EMLassemblyline::template_categorical_variables(
+#   path = path_templates,
+#   data.path = path_data)
 
 # **UPDATE NAMES**
 
@@ -390,25 +376,6 @@ flextable::flextable(cat_vars) %>%
 
 ```
 
-
-
-<!-- ### Spatial data objects
-
-(List any geospatial data objects you would like to archive. Organize spatial data into .zip directories
-and describe each.)
-Directory name: (A short name for the data)
-Directory description: (A brief description of the data)
-
-Horizontal Coordinate System Name (e.g. WGS_1984_UTM_Zone_12N)
-Horizontal Accuracy Report
-Vertical Accuracy Report
-Cell Size X Direction
-Cell Size Y Direction
-Raster Origin (e.g. Upper Left)
-Number of Rows
-Number of Columns
-Number of Verticals
-Cell Geometry (e.g. pixel) -->
 
 
 ## 15. Scripts/code (software)
@@ -442,36 +409,8 @@ flextable::flextable(script_info) %>%
 
 
 
-## 16. Other objects (misc.)
-_List any other objects (e.g., .zip, .pdf, etc.) you would like to archive._
 
-**Note:** At the moment, we are not including any photographic data.
-
-
-```{r, other objects, echo = FALSE, message= FALSE, warning= FALSE}
-
-misc_file_name <- " "
-misc_description <- " "
-misc_data_type <- " "
-
-
-other_obj_colnames <- c("Filename", "Description", "Data type")
-
-other_objects <- tibble(misc_file_name, misc_description, misc_data_type)
-
-colnames(other_objects) <- other_obj_colnames
-
-```
-
-
-```{r, other objects export, echo=FALSE, message= FALSE, warning= FALSE}
-
-flextable::flextable(other_objects) %>% 
-  autofit(add_w = 0.2, add_h = 0.1, part = c("body", "header"), unit = "in")
-```
-
-
-## 17. Articles
+## 16. Articles
 _List articles citing this dataset. Add as many rows as necessary_
 
 

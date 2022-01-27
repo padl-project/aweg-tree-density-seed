@@ -1,0 +1,6 @@
+attributeName	attributeDefinition	class	unit	dateTimeFormatString	missingValueCode	missingValueCodeExplanation
+tree_type		categorical				
+phase		categorical				
+nn_distance_value		numeric	!Add units here!			
+nn_density_estimate		numeric	!Add units here!			
+trees_hectare		numeric	!Add units here!			
