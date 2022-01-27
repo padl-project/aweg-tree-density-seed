@@ -1,0 +1,42 @@
+---
+title: "Cleaning Tree Density Seedling Data"
+author: "Camila Vargas"
+date: "1/27/2022"
+output: html_document
+---
+
+## Set up
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+## Load packages
+library(here)
+library(tidyverse)
+library(janitor)
+library(readxl)
+library(freeR)
+
+## Sets R not to use scientific notations
+options(scipen=999) 
+
+raw_data_path <- here::here("6.raw_data/")
+```
+
+## Exploring data
+```{r}
+
+excel_sheets(here::here("6.raw_data/Tree Density _ Seedling Density.xlsx"))
+
+```
+
+Just the one sheet we need.
+
+## Read data
+```{r}
+tree_dens_raw <- read_excel(here::here("6.raw_data/Tree Density _ Seedling Density.xlsx")) %>% 
+  clean_names()
+```
+
+
+

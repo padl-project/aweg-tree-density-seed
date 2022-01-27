@@ -35,7 +35,7 @@ Make sure the file path on the code is updated to the correct folder.
 # url of folder where the data lives
 # Copy paste the url of the folder where the data lives
 
-folder_url <- " "
+folder_url <- "https://drive.google.com/drive/u/0/folders/1aAVaoQOBinW7n-01RIBSq_AFbKdthAqJ"
 
 # list of files inside the folder
 files <- drive_ls(as_id(folder_url))
@@ -53,8 +53,8 @@ files <- drive_ls(as_id(folder_url))
 
 # **UPDATE NUMBER IN BRACKETS**
 
-drive_download(as_id(files$id[1]),
-               path = paste0("6.raw_data/", files$name[1]),
+drive_download(as_id(files$id[4]),
+               path = paste0("6.raw_data/", files$name[4]),
                overwrite = T)
 
 ```
